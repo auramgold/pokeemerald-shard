@@ -2,7 +2,7 @@
 #include "battle_main.h"
 #include "battle_util.h"
 #include "bg.h"
-#include "contest.h"
+//#include "contest.h"
 #include "contest_effect.h"
 #include "data.h"
 #include "daycare.h"
@@ -4347,11 +4347,11 @@ static void SetTypeIconPosAndPal(u8 typeId, u8 x, u8 y, u8 spriteArrayId)
     struct Sprite *sprite;
 
     sprite = &gSprites[sPokedexView->typeIconSpriteIds[spriteArrayId]];
-    StartSpriteAnim(sprite, typeId);
-    if (typeId < NUMBER_OF_MON_TYPES)
+    StartSpriteAnim(sprite, typeId);/*
+    if (typeId < NUMBER_OF_MON_TYPES)*/
         sprite->oam.paletteNum = gTypesInfo[typeId].palette + TYPE_INFO_PALETTE_NUM_OFFSET;
-    else
-        sprite->oam.paletteNum = gContestCategoryInfo[typeId - NUMBER_OF_MON_TYPES].palette  + TYPE_INFO_PALETTE_NUM_OFFSET;
+    // else
+    //     sprite->oam.paletteNum = gContestCategoryInfo[typeId - NUMBER_OF_MON_TYPES].palette  + TYPE_INFO_PALETTE_NUM_OFFSET;
     sprite->x = x + 16;
     sprite->y = y + 8;
     SetSpriteInvisibility(spriteArrayId, FALSE);

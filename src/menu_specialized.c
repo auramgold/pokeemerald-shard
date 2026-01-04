@@ -1,7 +1,7 @@
 #include "global.h"
 #include "malloc.h"
 #include "battle_main.h"
-#include "contest.h"
+//#include "contest.h"
 #include "contest_effect.h"
 #include "data.h"
 #include "decompress.h"
@@ -815,36 +815,37 @@ static void MoveRelearnerLoadBattleMoveDescription(u32 chosenMove)
 
 static void MoveRelearnerMenuLoadContestMoveDescription(u32 chosenMove)
 {
-    s32 x;
-    const u8 *str;
-
-    MoveRelearnerShowHideHearts(chosenMove);
-    FillWindowPixelBuffer(RELEARNERWIN_DESC_CONTEST, PIXEL_FILL(1));
-    str = gText_MoveRelearnerContestMovesTitle;
-    x = GetStringCenterAlignXOffset(FONT_NORMAL, str, 128);
-    AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NORMAL, str, x, 1, TEXT_SKIP_DRAW, NULL);
-
-    str = gText_MoveRelearnerAppeal;
-    x = GetStringRightAlignXOffset(FONT_NORMAL, str, 92);
-    AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NORMAL, str, x, 25, TEXT_SKIP_DRAW, NULL);
-
-    str = gText_MoveRelearnerJam;
-    x = GetStringRightAlignXOffset(FONT_NORMAL, str, 92);
-    AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NORMAL, str, x, 41, TEXT_SKIP_DRAW, NULL);
-
-    if (chosenMove == MENU_NOTHING_CHOSEN)
-    {
-        CopyWindowToVram(RELEARNERWIN_DESC_CONTEST, COPYWIN_GFX);
-        return;
-    }
-
-    str = gContestCategoryInfo[GetMoveContestCategory(chosenMove)].name;
-    AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NORMAL, str, 4, 25, TEXT_SKIP_DRAW, NULL);
-
-    str = gContestEffects[GetMoveContestEffect(chosenMove)].description;
-    AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NARROW, str, 0, 65, TEXT_SKIP_DRAW, NULL);
-
-    CopyWindowToVram(RELEARNERWIN_DESC_CONTEST, COPYWIN_GFX);
+    //TODO: THIS IS NAIVE DO SOMETHING ELSE
+    // s32 x;
+    // const u8 *str;
+    //
+    // MoveRelearnerShowHideHearts(chosenMove);
+    // FillWindowPixelBuffer(RELEARNERWIN_DESC_CONTEST, PIXEL_FILL(1));
+    // str = gText_MoveRelearnerContestMovesTitle;
+    // x = GetStringCenterAlignXOffset(FONT_NORMAL, str, 128);
+    // AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NORMAL, str, x, 1, TEXT_SKIP_DRAW, NULL);
+    //
+    // str = gText_MoveRelearnerAppeal;
+    // x = GetStringRightAlignXOffset(FONT_NORMAL, str, 92);
+    // AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NORMAL, str, x, 25, TEXT_SKIP_DRAW, NULL);
+    //
+    // str = gText_MoveRelearnerJam;
+    // x = GetStringRightAlignXOffset(FONT_NORMAL, str, 92);
+    // AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NORMAL, str, x, 41, TEXT_SKIP_DRAW, NULL);
+    //
+    // if (chosenMove == MENU_NOTHING_CHOSEN)
+    // {
+    //     CopyWindowToVram(RELEARNERWIN_DESC_CONTEST, COPYWIN_GFX);
+    //     return;
+    // }
+    //
+    // str = gContestCategoryInfo[GetMoveContestCategory(chosenMove)].name;
+    // AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NORMAL, str, 4, 25, TEXT_SKIP_DRAW, NULL);
+    //
+    // str = gContestEffects[GetMoveContestEffect(chosenMove)].description;
+    // AddTextPrinterParameterized(RELEARNERWIN_DESC_CONTEST, FONT_NARROW, str, 0, 65, TEXT_SKIP_DRAW, NULL);
+    //
+    // CopyWindowToVram(RELEARNERWIN_DESC_CONTEST, COPYWIN_GFX);
 }
 
 static void MoveRelearnerCursorCallback(s32 itemIndex, bool8 onInit, struct ListMenu *list)
@@ -1036,32 +1037,32 @@ void GetConditionMenuMonNameAndLocString(u8 *locationDst, u8 *nameDst, u16 boxId
 
 void GetConditionMenuMonConditions(struct ConditionGraph *graph, u8 *numSparkles, u16 boxId, u16 monId, u16 partyId, u16 id, u16 numMons, bool8 excludesCancel)
 {
-    u16 i;
-
-    if (!excludesCancel)
-        numMons--;
-
-    if (partyId != numMons)
-    {
-        graph->conditions[id][CONDITION_COOL] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_COOL, NULL);
-        graph->conditions[id][CONDITION_TOUGH] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_TOUGH, NULL);
-        graph->conditions[id][CONDITION_SMART] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_SMART, NULL);
-        graph->conditions[id][CONDITION_CUTE] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_CUTE, NULL);
-        graph->conditions[id][CONDITION_BEAUTY] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_BEAUTY, NULL);
-
-        numSparkles[id] = GET_NUM_CONDITION_SPARKLES(GetBoxOrPartyMonData(boxId, monId, MON_DATA_SHEEN, NULL));
-
-        ConditionGraph_CalcPositions(graph->conditions[id], graph->savedPositions[id]);
-    }
-    else
-    {
-        for (i = 0; i < CONDITION_COUNT; i++)
-        {
-            graph->conditions[id][i] = 0;
-            graph->savedPositions[id][i].x = CONDITION_GRAPH_CENTER_X;
-            graph->savedPositions[id][i].y = CONDITION_GRAPH_CENTER_Y;
-        }
-    }
+    // u16 i;
+    //
+    // if (!excludesCancel)
+    //     numMons--;
+    //
+    // if (partyId != numMons)
+    // {
+    //     graph->conditions[id][CONDITION_COOL] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_COOL, NULL);
+    //     graph->conditions[id][CONDITION_TOUGH] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_TOUGH, NULL);
+    //     graph->conditions[id][CONDITION_SMART] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_SMART, NULL);
+    //     graph->conditions[id][CONDITION_CUTE] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_CUTE, NULL);
+    //     graph->conditions[id][CONDITION_BEAUTY] = GetBoxOrPartyMonData(boxId, monId, MON_DATA_BEAUTY, NULL);
+    //
+    //     numSparkles[id] = GET_NUM_CONDITION_SPARKLES(GetBoxOrPartyMonData(boxId, monId, MON_DATA_SHEEN, NULL));
+    //
+    //     ConditionGraph_CalcPositions(graph->conditions[id], graph->savedPositions[id]);
+    // }
+    // else
+    // {
+    //     for (i = 0; i < CONDITION_COUNT; i++)
+    //     {
+    //         graph->conditions[id][i] = 0;
+    //         graph->savedPositions[id][i].x = CONDITION_GRAPH_CENTER_X;
+    //         graph->savedPositions[id][i].y = CONDITION_GRAPH_CENTER_Y;
+    //     }
+    // }
 }
 
 void GetConditionMenuMonGfx(void *tilesDst, void *palDst, u16 boxId, u16 monId, u16 partyId, u16 numMons, bool8 excludesCancel)

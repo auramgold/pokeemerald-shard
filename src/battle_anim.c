@@ -6,7 +6,7 @@
 #include "battle_interface.h"
 #include "battle_util.h"
 #include "bg.h"
-#include "contest.h"
+//#include "contest.h"
 #include "decompress.h"
 #include "dma3.h"
 #include "gpu_regs.h"
@@ -380,8 +380,8 @@ void LaunchBattleAnimation(u32 animType, u32 animId)
     }
     else
     {
-        for (i = 0; i < CONTESTANT_COUNT; i++)
-            gAnimBattlerSpecies[i] = gContestResources->moveAnim->species;
+        // for (i = 0; i < CONTESTANT_COUNT; i++)
+            // gAnimBattlerSpecies[i] = gContestResources->moveAnim->species;
     }
 
     if (animType != ANIM_TYPE_MOVE)
@@ -885,7 +885,7 @@ static void Cmd_end(void)
             DebugPrintf("Move %d animation still has Task_UpdateMonBg active at the end!", gAnimMoveIndex);
 
         m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 256);
-        if (!IsContest())
+        // if (!IsContest())
         {
             InitPrioritiesForVisibleBattlers();
             UpdateOamPriorityInAllHealthboxes(1, sAnimHideHpBoxes);
@@ -1034,17 +1034,17 @@ u8 GetAnimBattlerId(u8 wantedBattler)
 
 bool8 IsBattlerSpriteVisible(u8 battler)
 {
-    if (IsContest())
-    {
-        if (battler == gBattleAnimAttacker)
-            return TRUE;
-        else
-            return FALSE;
-    }
+    // if (IsContest())
+    // {
+    //     if (battler == gBattleAnimAttacker)
+    //         return TRUE;
+    //     else
+    //         return FALSE;
+    // }
     if (!IsBattlerSpritePresent(battler))
         return FALSE;
-    if (IsContest())
-        return TRUE; // This line won't ever be reached.
+    //if (IsContest())
+      //  return TRUE; // This line won't ever be reached.
     if (!gBattleSpritesDataPtr->battlerData[battler].invisible || !gSprites[gBattlerSpriteIds[battler]].invisible)
         return TRUE;
 
@@ -1060,12 +1060,12 @@ void MoveBattlerSpriteToBG(u8 battler, bool8 toBG_2, bool8 setSpriteInvisible)
     {
         u8 battlerPosition;
 
-        if (IsContest() == TRUE)
-        {
-            RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(16)), 0x2000, 1);
-            RequestDma3Fill(0xFF, (void *)(BG_SCREEN_ADDR(30)), 0x1000, 0);
-        }
-        else
+        // if (IsContest() == TRUE)
+        // {
+        //     RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(16)), 0x2000, 1);
+        //     RequestDma3Fill(0xFF, (void *)(BG_SCREEN_ADDR(30)), 0x1000, 0);
+        // }
+        // else
         {
             RequestDma3Fill(0, (void *)(BG_SCREEN_ADDR(8)), 0x2000, 1);
             RequestDma3Fill(0xFF, (void *)(BG_SCREEN_ADDR(28)), 0x1000, 0);
@@ -1082,8 +1082,8 @@ void MoveBattlerSpriteToBG(u8 battler, bool8 toBG_2, bool8 setSpriteInvisible)
         battlerSpriteId = gBattlerSpriteIds[battler];
 
         gBattle_BG1_X =  -(gSprites[battlerSpriteId].x + gSprites[battlerSpriteId].x2) + 0x20;
-        if (IsContest() && IsSpeciesNotUnown(gContestResources->moveAnim->species))
-            gBattle_BG1_X--;
+        // if (IsContest() && IsSpeciesNotUnown(gContestResources->moveAnim->species))
+            // gBattle_BG1_X--;
 
         gBattle_BG1_Y =  -(gSprites[battlerSpriteId].y + gSprites[battlerSpriteId].y2) + 0x20;
         if (setSpriteInvisible)
@@ -1095,9 +1095,9 @@ void MoveBattlerSpriteToBG(u8 battler, bool8 toBG_2, bool8 setSpriteInvisible)
         LoadPalette(&gPlttBufferUnfaded[OBJ_PLTT_ID(battler)], BG_PLTT_ID(animBg.paletteId), PLTT_SIZE_4BPP);
         CpuCopy32(&gPlttBufferUnfaded[OBJ_PLTT_ID(battler)], (void *)(BG_PLTT + PLTT_OFFSET_4BPP(animBg.paletteId)), PLTT_SIZE_4BPP);
 
-        if (IsContest())
-            battlerPosition = 0;
-        else
+        // if (IsContest())
+        //     battlerPosition = 0;
+        // else
             battlerPosition = GetBattlerPosition(battler);
 
         DrawBattlerOnBg(1, 0, 0, battlerPosition, animBg.paletteId, animBg.bgTiles, animBg.bgTilemap, animBg.tilesOffset);
@@ -1140,7 +1140,7 @@ static void FlipBattlerBgTiles(void)
     struct BattleAnimBgData animBg;
     u16 *ptr;
 
-    if (IsSpeciesNotUnown(gContestResources->moveAnim->species))
+    /*if (IsSpeciesNotUnown(gContestResources->moveAnim->species))
     {
         GetBattleAnimBg1Data(&animBg);
         ptr = animBg.bgTilemap;
@@ -1157,7 +1157,7 @@ static void FlipBattlerBgTiles(void)
             for (j = 0; j < 8; j++)
                 ptr[j + i * 32] ^= 0x400;
         }
-    }
+    }*/
 }
 
 void RelocateBattleBgPal(u16 paletteNum, u16 *dest, u32 offset, bool8 largeScreen)
@@ -1487,10 +1487,7 @@ static void Cmd_goto(void)
 // As a result, if misused, this function cannot reliably discern between field and contest status and could result in undefined behavior.
 bool8 IsContest(void)
 {
-    if (!gMain.inBattle)
-        return TRUE;
-    else
-        return FALSE;
+    return FALSE;
 }
 
 #define tBackgroundId   data[0]
@@ -1589,9 +1586,9 @@ void LoadMoveBg(u16 bgId)
 
 static void LoadDefaultBg(void)
 {
-    if (IsContest())
+/*    if (IsContest())
         LoadContestBgAfterMoveAnim();
-    else if (B_TERRAIN_BG_CHANGE == TRUE && gFieldStatuses & STATUS_FIELD_TERRAIN_ANY)
+    else */if (B_TERRAIN_BG_CHANGE == TRUE && gFieldStatuses & STATUS_FIELD_TERRAIN_ANY)
         DrawTerrainTypeBattleBackground();
     else
         DrawMainBattleBackground();

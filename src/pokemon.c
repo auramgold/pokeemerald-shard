@@ -2453,23 +2453,26 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         case MON_DATA_SPDEF_EV:
             retVal = GetSubstruct2(boxMon)->spDefenseEV;
             break;
-        case MON_DATA_COOL:
-            retVal = GetSubstruct2(boxMon)->cool;
-            break;
-        case MON_DATA_BEAUTY:
-            retVal = GetSubstruct2(boxMon)->beauty;
-            break;
-        case MON_DATA_CUTE:
-            retVal = GetSubstruct2(boxMon)->cute;
-            break;
-        case MON_DATA_SMART:
-            retVal = GetSubstruct2(boxMon)->smart;
-            break;
-        case MON_DATA_TOUGH:
-            retVal = GetSubstruct2(boxMon)->tough;
-            break;
-        case MON_DATA_SHEEN:
-            retVal = GetSubstruct2(boxMon)->sheen;
+        // case MON_DATA_COOL:
+        //     retVal = GetSubstruct2(boxMon)->cool;
+        //     break;
+        // case MON_DATA_BEAUTY:
+        //     retVal = GetSubstruct2(boxMon)->beauty;
+        //     break;
+        // case MON_DATA_CUTE:
+        //     retVal = GetSubstruct2(boxMon)->cute;
+        //     break;
+        // case MON_DATA_SMART:
+        //     retVal = GetSubstruct2(boxMon)->smart;
+        //     break;
+        // case MON_DATA_TOUGH:
+        //     retVal = GetSubstruct2(boxMon)->tough;
+        //     break;
+        // case MON_DATA_SHEEN:
+        //     retVal = GetSubstruct2(boxMon)->sheen;
+        //     break;
+        case MON_DATA_SHARD_ABILITY:
+            retVal = GetSubstruct2(boxMon)->shardAbility;
             break;
         case MON_DATA_POKERUS:
             retVal = GetSubstruct3(boxMon)->pokerus;
@@ -2962,23 +2965,26 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         case MON_DATA_SPDEF_EV:
             SET8(GetSubstruct2(boxMon)->spDefenseEV);
             break;
-        case MON_DATA_COOL:
-            SET8(GetSubstruct2(boxMon)->cool);
-            break;
-        case MON_DATA_BEAUTY:
-            SET8(GetSubstruct2(boxMon)->beauty);
-            break;
-        case MON_DATA_CUTE:
-            SET8(GetSubstruct2(boxMon)->cute);
-            break;
-        case MON_DATA_SMART:
-            SET8(GetSubstruct2(boxMon)->smart);
-            break;
-        case MON_DATA_TOUGH:
-            SET8(GetSubstruct2(boxMon)->tough);
-            break;
-        case MON_DATA_SHEEN:
-            SET8(GetSubstruct2(boxMon)->sheen);
+        // case MON_DATA_COOL:
+        //     SET8(GetSubstruct2(boxMon)->cool);
+        //     break;
+        // case MON_DATA_BEAUTY:
+        //     SET8(GetSubstruct2(boxMon)->beauty);
+        //     break;
+        // case MON_DATA_CUTE:
+        //     SET8(GetSubstruct2(boxMon)->cute);
+        //     break;
+        // case MON_DATA_SMART:
+        //     SET8(GetSubstruct2(boxMon)->smart);
+        //     break;
+        // case MON_DATA_TOUGH:
+        //     SET8(GetSubstruct2(boxMon)->tough);
+        //     break;
+        // case MON_DATA_SHEEN:
+        //     SET8(GetSubstruct2(boxMon)->sheen);
+        //     break;
+        case MON_DATA_SHARD_ABILITY:
+            SET16(GetSubstruct2(boxMon)->shardAbility);
             break;
         case MON_DATA_POKERUS:
             SET8(GetSubstruct3(boxMon)->pokerus);
@@ -4501,40 +4507,40 @@ bool32 DoesMonMeetAdditionalConditions(struct Pokemon *mon, const struct Evoluti
             break;
         case IF_MIN_BEAUTY:
         {
-            u32 beauty = GetMonData(mon, MON_DATA_BEAUTY, 0);
-            if (beauty >= params[i].arg1)
+            // u32 beauty = GetMonData(mon, MON_DATA_BEAUTY, 0);
+            // if (beauty >= params[i].arg1)
                 currentCondition = TRUE;
-            break;
+            // break;
         }
         case IF_MIN_COOLNESS:
         {
-            u32 coolness = GetMonData(mon, MON_DATA_COOL, 0);
-            if (coolness >= params[i].arg1)
+            // u32 coolness = GetMonData(mon, MON_DATA_COOL, 0);
+            // if (coolness >= params[i].arg1)
                 currentCondition = TRUE;
-            break;
+            // break;
         }
         case IF_MIN_SMARTNESS:
         // remember that even though it's called "Smart/Smartness" here,
         // from gen 6 and up it's known as "Clever/Cleverness."
         {
-            u32 smartness = GetMonData(mon, MON_DATA_SMART, 0);
-            if (smartness >= params[i].arg1)
+            // u32 smartness = GetMonData(mon, MON_DATA_SMART, 0);
+            // if (smartness >= params[i].arg1)
                 currentCondition = TRUE;
-            break;
+            // break;
         }
         case IF_MIN_TOUGHNESS:
         {
-            u32 toughness = GetMonData(mon, MON_DATA_TOUGH, 0);
-            if (toughness >= params[i].arg1)
+            // u32 toughness = GetMonData(mon, MON_DATA_TOUGH, 0);
+            // if (toughness >= params[i].arg1)
                 currentCondition = TRUE;
-            break;
+            // break;
         }
         case IF_MIN_CUTENESS:
         {
-            u32 cuteness = GetMonData(mon, MON_DATA_CUTE, 0);
-            if (cuteness >= params[i].arg1)
+            // u32 cuteness = GetMonData(mon, MON_DATA_CUTE, 0);
+            // if (cuteness >= params[i].arg1)
                 currentCondition = TRUE;
-            break;
+            // break;
         }
         // Gen 4
         case IF_SPECIES_IN_PARTY:

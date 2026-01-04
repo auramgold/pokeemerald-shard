@@ -51,9 +51,9 @@ enum MonData {
     MON_DATA_PP3,
     MON_DATA_PP4,
     MON_DATA_PP_BONUSES,
-    MON_DATA_COOL,
-    MON_DATA_BEAUTY,
-    MON_DATA_CUTE,
+    // MON_DATA_COOL,
+    // MON_DATA_BEAUTY,
+    // MON_DATA_CUTE,
     MON_DATA_EXP,
     MON_DATA_HP_EV,
     MON_DATA_ATK_EV,
@@ -62,7 +62,7 @@ enum MonData {
     MON_DATA_SPATK_EV,
     MON_DATA_SPDEF_EV,
     MON_DATA_FRIENDSHIP,
-    MON_DATA_SMART,
+    // MON_DATA_SMART,
     MON_DATA_POKERUS,
     MON_DATA_MET_LOCATION,
     MON_DATA_MET_LEVEL,
@@ -76,8 +76,8 @@ enum MonData {
     MON_DATA_SPDEF_IV,
     MON_DATA_IS_EGG,
     MON_DATA_ABILITY_NUM,
-    MON_DATA_TOUGH,
-    MON_DATA_SHEEN,
+    // MON_DATA_TOUGH,
+    // MON_DATA_SHEEN,
     MON_DATA_OT_GENDER,
     MON_DATA_COOL_RIBBON,
     MON_DATA_BEAUTY_RIBBON,
@@ -126,6 +126,7 @@ enum MonData {
     MON_DATA_GIGANTAMAX_FACTOR,
     MON_DATA_TERA_TYPE,
     MON_DATA_EVOLUTION_TRACKER,
+    MON_DATA_SHARD_ABILITY,
 };
 
 struct PokemonSubstruct0
@@ -174,12 +175,13 @@ struct PokemonSubstruct2
     u8 speedEV;
     u8 spAttackEV;
     u8 spDefenseEV;
-    u8 cool;
-    u8 beauty;
-    u8 cute;
-    u8 smart;
-    u8 tough;
-    u8 sheen;
+    // u8 cool;
+    // u8 beauty;
+    // u8 cute;
+    // u8 smart;
+    // u8 tough;
+    // u8 sheen;
+    enum Ability shardAbility; //u16
 };
 
 struct PokemonSubstruct3

@@ -22,7 +22,7 @@
 #include "decompress.h"
 #include "data.h"
 #include "palette.h"
-#include "contest.h"
+//#include "contest.h"
 #include "trainer_pokemon_sprites.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
@@ -923,19 +923,19 @@ void HandleSpeciesGfxDataChange(u8 battlerAtk, u8 battlerDef, u8 changeType)
     struct Pokemon *monDef = GetBattlerMon(battlerDef);
     void *dst;
 
-    if (IsContest())
-    {
-        position = B_POSITION_PLAYER_LEFT;
-        targetSpecies = gContestResources->moveAnim->targetSpecies;
-        personalityValue = gContestResources->moveAnim->personality;
-        isShiny = gContestResources->moveAnim->isShiny;
-
-        HandleLoadSpecialPokePic(FALSE,
-                                 gMonSpritesGfxPtr->spritesGfx[position],
-                                 targetSpecies,
-                                 gContestResources->moveAnim->targetPersonality);
-    }
-    else
+    // if (IsContest())
+    // {
+    //     position = B_POSITION_PLAYER_LEFT;
+    //     targetSpecies = gContestResources->moveAnim->targetSpecies;
+    //     personalityValue = gContestResources->moveAnim->personality;
+    //     isShiny = gContestResources->moveAnim->isShiny;
+    //
+    //     HandleLoadSpecialPokePic(FALSE,
+    //                              gMonSpritesGfxPtr->spritesGfx[position],
+    //                              targetSpecies,
+    //                              gContestResources->moveAnim->targetPersonality);
+    // }
+    // else
     {
         position = GetBattlerPosition(battlerAtk);
         if (changeType == SPECIES_GFX_CHANGE_TRANSFORM)
