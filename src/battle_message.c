@@ -873,6 +873,8 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_POWERCONSTRUCTPRESENCEOFMANY]         = COMPOUND_STRING("You sense the presence of many!"),
     [STRINGID_POWERCONSTRUCTTRANSFORM]              = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} transformed into its Complete Forme!"),
     [STRINGID_ABILITYSHIELDPROTECTS]                = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX}'s Ability is protected by the effects of its {B_LAST_ITEM}!"),
+    [STRINGID_PKMNSHARDCHARGE]                      = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} is calling on its otherworldly power!"),
+    [STRINGID_PKMNSHARDSHATTER]                     = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX}'s shard caused it to Shatter! Its ability is now {B_BUFF1}."),
 };
 
 const u16 gTrainerUsedItemStringIds[] =

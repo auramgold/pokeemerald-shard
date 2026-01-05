@@ -9,6 +9,7 @@
 #include "battle_interface.h"
 #include "battle_setup.h"
 #include "battle_z_move.h"
+#include "battle_shard.h"
 #include "battle_gimmick.h"
 #include "battle_hold_effects.h"
 #include "generational_changes.h"
@@ -5729,6 +5730,13 @@ enum Ability GetBattlerAbility(u32 battler)
 
 u32 GetBattlerAbilityInternal(u32 battler, u32 ignoreMoldBreaker, u32 noAbilityShield)
 {
+    bool32 isShard = GetActiveGimmick(battler) == GIMMICK_SHARD;
+    if (isShard)
+    {
+        enum Ability shardAbility = GetBattlerShardAbility(battler);
+        return shardAbility;
+    }
+
     bool32 hasAbilityShield = !noAbilityShield && GetBattlerHoldEffectIgnoreAbility(battler) == HOLD_EFFECT_ABILITY_SHIELD;
     bool32 abilityCantBeSuppressed = gAbilitiesInfo[gBattleMons[battler].ability].cantBeSuppressed;
 

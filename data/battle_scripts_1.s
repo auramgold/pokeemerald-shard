@@ -21,6 +21,16 @@
 
 	.section script_data, "aw", %progbits
 
+BattleScript_ShardShattering::
+	printstring STRINGID_SHARDCHARGE
+	playanimation BS_ATTACKER, B_ANIM_TERA_CHARGE
+	waitanimation
+	playanimation BS_ATTACKER, B_ANIM_TERA_ACTIVATE
+	waitanimation
+	printstring STRINGID_SHARDSHATTERED
+	waitmessage B_WAIT_TIME_LONG
+	end3
+
 BattleScript_EffectFickleBeam::
 	attackcanceler
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
