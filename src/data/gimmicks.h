@@ -50,5 +50,15 @@ const struct GimmickInfo gGimmicksInfo[GIMMICKS_COUNT] =
         .indicatorPalTag = TAG_TERA_INDICATOR_PAL,
         .CanActivate = CanTerastallize,
         .ActivateGimmick = ActivateTera,
-    }
+    },
+    [GIMMICK_SHARD] =
+    {
+        .triggerSheet = &sSpriteSheet_MegaTrigger,
+        .triggerPal = &sSpritePalette_MegaTrigger,
+        .triggerTemplate = &sSpriteTemplate_GimmickTrigger,
+        .indicatorData = sMegaIndicatorGfx,
+        .indicatorPalTag = TAG_MEGA_INDICATOR_PAL,
+        .CanActivate = CanActivateShard,
+        .ActivateGimmick = ActivateShard,
+    },
 };

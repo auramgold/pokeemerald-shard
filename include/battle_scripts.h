@@ -845,4 +845,6 @@ extern const u8 BattleScript_SleepTalkAttackstring[];
 extern const u8 BattleScript_NaturePowerAttackstring[];
 extern const u8 BattleScript_PokemonCantUseTheMove[];
 
+extern const u8 BattleScript_ShardShattering[];
+
 #endif // GUARD_BATTLE_SCRIPTS_H
