@@ -29,6 +29,7 @@ BattleScript_ShardShattering::
 	waitanimation
 	printstring STRINGID_PKMNSHARDSHATTER
 	waitmessage B_WAIT_TIME_LONG
+	switchinabilities BS_ATTACKER
 	end3
 
 BattleScript_EffectFickleBeam::

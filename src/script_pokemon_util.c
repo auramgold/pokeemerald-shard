@@ -435,7 +435,7 @@ static u32 ScriptGiveMonParameterized(u8 side, u8 slot, u16 species, u8 level, u
     SetMonData(&mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
 
     // TODO: TEMPORARY WONDER GUARD TEST
-    enum Ability temporaryShardAbility = ABILITY_WONDER_GUARD;
+    enum Ability temporaryShardAbility = ABILITY_DROUGHT;
     SetMonData(&mon, MON_DATA_SHARD_ABILITY, &temporaryShardAbility);
 
     if (slot < PARTY_SIZE)

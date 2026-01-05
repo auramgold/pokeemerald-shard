@@ -3291,6 +3291,8 @@ void SwitchInClearSetData(u32 battler, struct Volatiles *volatilesCopy)
     }
     #endif // TESTING
 
+    UpdateDisplayedShardAbility(battler);
+
     Ai_UpdateSwitchInData(battler);
 }
 

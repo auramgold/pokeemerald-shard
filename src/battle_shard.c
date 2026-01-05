@@ -23,9 +23,12 @@ void ActivateShard(u32 battler)
 	SetActiveGimmick(battler, GIMMICK_SHARD);
 	SetGimmickAsActivated(battler, GIMMICK_SHARD);
 
+	// Update and execute changed ability.
+	UpdateDisplayedShardAbility(battler);
+	gSpecialStatuses[battler].switchInAbilityDone = FALSE;
+
 	// Execute battle script.
 	PREPARE_ABILITY_BUFFER(gBattleTextBuff1, GetBattlerShardAbility(battler));
-	gBattleMons[battler].ability = GetBattlerShardAbility(battler);
 	BattleScriptExecute(BattleScript_ShardShattering);
 }
 
@@ -57,4 +60,10 @@ bool32 CanActivateShard(u32 battler)
 enum Ability GetBattlerShardAbility(u32 battler)
 {
 	return GetMonData(GetBattlerMon(battler), MON_DATA_SHARD_ABILITY);
+}
+
+void UpdateDisplayedShardAbility(u32 battler)
+{
+	if(GetActiveGimmick(battler) == GIMMICK_SHARD)
+		gBattleMons[battler].ability = GetBattlerShardAbility(battler);
 }

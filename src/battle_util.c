@@ -10066,6 +10066,7 @@ void CopyMonLevelAndBaseStatsToBattleMon(u32 battler, struct Pokemon *mon)
 void CopyMonAbilityAndTypesToBattleMon(u32 battler, struct Pokemon *mon)
 {
     gBattleMons[battler].ability = GetMonAbility(mon);
+    UpdateDisplayedShardAbility(battler);
     gBattleMons[battler].types[0] = GetSpeciesType(gBattleMons[battler].species, 0);
     gBattleMons[battler].types[1] = GetSpeciesType(gBattleMons[battler].species, 1);
     gBattleMons[battler].types[2] = TYPE_MYSTERY;
