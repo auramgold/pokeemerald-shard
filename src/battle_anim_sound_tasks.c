@@ -1,7 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_anim.h"
-//#include "contest.h"
+#include "contest.h"
 #include "m4a.h"
 #include "sound.h"
 #include "task.h"
@@ -135,18 +135,18 @@ void SoundTask_PlayCryHighPitch(u8 taskId)
 {
     u16 species = 0;
     s8 pan = BattleAnimAdjustPanning(SOUND_PAN_ATTACKER);
-    // if (IsContest())
-    // {
-    //     if (gBattleAnimArgs[0] == ANIM_ATTACKER)
-    //         species = gContestResources->moveAnim->species;
-    // // Destroying the task twice (here and at end of function)
-    // // results in an incorrect value for gAnimVisualTaskCount
-    // #ifndef BUGFIX
-    //     else
-    //         DestroyAnimVisualTask(taskId);
-    // #endif
-    // }
-    // else
+    if (IsContest())
+    {
+        if (gBattleAnimArgs[0] == ANIM_ATTACKER)
+            species = gContestResources->moveAnim->species;
+    // Destroying the task twice (here and at end of function)
+    // results in an incorrect value for gAnimVisualTaskCount
+    #ifndef BUGFIX
+        else
+            DestroyAnimVisualTask(taskId);
+    #endif
+    }
+    else
     {
         u8 battler;
 
@@ -180,18 +180,18 @@ void SoundTask_PlayDoubleCry(u8 taskId)
 {
     u16 species = 0;
     s8 pan = BattleAnimAdjustPanning(SOUND_PAN_ATTACKER);
-    // if (IsContest())
-    // {
-    //     if (gBattleAnimArgs[0] == ANIM_ATTACKER)
-    //         species = gContestResources->moveAnim->species;
-    // // Destroying the task twice (here and at end of function)
-    // // results in an incorrect value for gAnimVisualTaskCount
-    // #ifndef BUGFIX
-    //     else
-    //         DestroyAnimVisualTask(taskId);
-    // #endif
-    // }
-    // else
+    if (IsContest())
+    {
+        if (gBattleAnimArgs[0] == ANIM_ATTACKER)
+            species = gContestResources->moveAnim->species;
+    // Destroying the task twice (here and at end of function)
+    // results in an incorrect value for gAnimVisualTaskCount
+    #ifndef BUGFIX
+        else
+            DestroyAnimVisualTask(taskId);
+    #endif
+    }
+    else
     {
         u8 battler;
 
@@ -297,9 +297,9 @@ void SoundTask_PlayCryWithEcho(u8 taskId)
     gTasks[taskId].tLastCry = gBattleAnimArgs[0];
     pan = BattleAnimAdjustPanning(SOUND_PAN_ATTACKER);
 
-    // if (IsContest())
-    //     species = gContestResources->moveAnim->species;
-    // else
+    if (IsContest())
+        species = gContestResources->moveAnim->species;
+    else
         species = (GetIllusionMonSpecies(gBattleAnimAttacker) != SPECIES_NONE) ? GetIllusionMonSpecies(gBattleAnimAttacker) : gAnimBattlerSpecies[gBattleAnimAttacker];
 
     gTasks[taskId].tSpecies = species;

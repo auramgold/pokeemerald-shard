@@ -33,7 +33,7 @@
 #include "save.h"
 #include "link_rfu.h"
 #include "main.h"
-//#include "contest.h"
+#include "contest.h"
 #include "item_menu.h"
 #include "pokemon_storage_system.h"
 #include "pokemon_jump.h"
@@ -112,13 +112,13 @@ static void ClearPokedexFlags(void)
 
 void ClearAllContestWinnerPics(void)
 {
-    // s32 i;
-    //
-    // ClearContestWinnerPicsInContestHall();
-    //
-    // // Clear Museum paintings
-    // for (i = MUSEUM_CONTEST_WINNERS_START; i < NUM_CONTEST_WINNERS; i++)
-    //     gSaveBlock1Ptr->contestWinners[i] = sContestWinnerPicDummy;
+    s32 i;
+
+    ClearContestWinnerPicsInContestHall();
+
+    // Clear Museum paintings
+    for (i = MUSEUM_CONTEST_WINNERS_START; i < NUM_CONTEST_WINNERS; i++)
+        gSaveBlock1Ptr->contestWinners[i] = sContestWinnerPicDummy;
 }
 
 static void ClearFrontierRecord(void)
@@ -177,7 +177,7 @@ void NewGameInitData(void)
     ClearBerryTrees();
     SetMoney(&gSaveBlock1Ptr->money, 3000);
     SetCoins(0);
-    //ResetLinkContestBoolean();
+    ResetLinkContestBoolean();
     ResetGameStats();
     ClearAllContestWinnerPics();
     ClearPlayerLinkBattleRecords();
@@ -208,7 +208,7 @@ void NewGameInitData(void)
     ClearMysteryGift();
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
-    //ResetContestLinkResults();
+    ResetContestLinkResults();
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
     ResetItemFlags();
     ResetDexNav();

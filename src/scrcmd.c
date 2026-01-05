@@ -4,7 +4,7 @@
 #include "berry.h"
 #include "clock.h"
 #include "coins.h"
-//#include "contest.h"
+#include "contest.h"
 #include "contest_util.h"
 #include "contest_painting.h"
 #include "data.h"
@@ -2007,16 +2007,16 @@ bool8 ScrCmd_hidemonpic(struct ScriptContext *ctx)
 
 bool8 ScrCmd_showcontestpainting(struct ScriptContext *ctx)
 {
-    // u8 contestWinnerId = ScriptReadByte(ctx);
-    //
-    // Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
-    //
-    // // Artist's painting is temporary and already has its data loaded
-    // if (contestWinnerId != CONTEST_WINNER_ARTIST)
-    //     SetContestWinnerForPainting(contestWinnerId);
-    //
-    // ShowContestPainting();
-    // ScriptContext_Stop();
+    u8 contestWinnerId = ScriptReadByte(ctx);
+
+    Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
+
+    // Artist's painting is temporary and already has its data loaded
+    if (contestWinnerId != CONTEST_WINNER_ARTIST)
+        SetContestWinnerForPainting(contestWinnerId);
+
+    ShowContestPainting();
+    ScriptContext_Stop();
     return TRUE;
 }
 
@@ -2631,10 +2631,10 @@ bool8 ScrCmd_showcontestresults(struct ScriptContext *ctx)
 
 bool8 ScrCmd_contestlinktransfer(struct ScriptContext *ctx)
 {
-    // Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
-    //
-    // ContestLinkTransfer(gSpecialVar_ContestCategory);
-    // ScriptContext_Stop();
+    Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
+
+    ContestLinkTransfer(gSpecialVar_ContestCategory);
+    ScriptContext_Stop();
     return TRUE;
 }
 

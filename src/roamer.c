@@ -108,11 +108,11 @@ static void CreateInitialRoamerMon(u8 index, u16 species, u8 level)
     ROAMER(index)->statusA = 0;
     ROAMER(index)->statusB = 0;
     ROAMER(index)->hp = GetMonData(&gEnemyParty[0], MON_DATA_MAX_HP);
-    // ROAMER(index)->cool = GetMonData(&gEnemyParty[0], MON_DATA_COOL);
-    // ROAMER(index)->beauty = GetMonData(&gEnemyParty[0], MON_DATA_BEAUTY);
-    // ROAMER(index)->cute = GetMonData(&gEnemyParty[0], MON_DATA_CUTE);
-    // ROAMER(index)->smart = GetMonData(&gEnemyParty[0], MON_DATA_SMART);
-    // ROAMER(index)->tough = GetMonData(&gEnemyParty[0], MON_DATA_TOUGH);
+    ROAMER(index)->cool = GetMonData(&gEnemyParty[0], MON_DATA_COOL);
+    ROAMER(index)->beauty = GetMonData(&gEnemyParty[0], MON_DATA_BEAUTY);
+    ROAMER(index)->cute = GetMonData(&gEnemyParty[0], MON_DATA_CUTE);
+    ROAMER(index)->smart = GetMonData(&gEnemyParty[0], MON_DATA_SMART);
+    ROAMER(index)->tough = GetMonData(&gEnemyParty[0], MON_DATA_TOUGH);
     ROAMER(index)->shiny = GetMonData(&gEnemyParty[0], MON_DATA_IS_SHINY);
     ROAMER(index)->active = TRUE;
     sRoamerLocation[index][MAP_GRP] = ROAMER_MAP_GROUP;
@@ -246,11 +246,11 @@ void CreateRoamerMonInstance(u32 roamerIndex)
     CreateMonWithIVsPersonality(mon, ROAMER(roamerIndex)->species, ROAMER(roamerIndex)->level, ROAMER(roamerIndex)->ivs, ROAMER(roamerIndex)->personality);
     SetMonData(mon, MON_DATA_STATUS, &status);
     SetMonData(mon, MON_DATA_HP, &ROAMER(roamerIndex)->hp);
-    // SetMonData(mon, MON_DATA_COOL, &ROAMER(roamerIndex)->cool);
-    // SetMonData(mon, MON_DATA_BEAUTY, &ROAMER(roamerIndex)->beauty);
-    // SetMonData(mon, MON_DATA_CUTE, &ROAMER(roamerIndex)->cute);
-    // SetMonData(mon, MON_DATA_SMART, &ROAMER(roamerIndex)->smart);
-    // SetMonData(mon, MON_DATA_TOUGH, &ROAMER(roamerIndex)->tough);
+    SetMonData(mon, MON_DATA_COOL, &ROAMER(roamerIndex)->cool);
+    SetMonData(mon, MON_DATA_BEAUTY, &ROAMER(roamerIndex)->beauty);
+    SetMonData(mon, MON_DATA_CUTE, &ROAMER(roamerIndex)->cute);
+    SetMonData(mon, MON_DATA_SMART, &ROAMER(roamerIndex)->smart);
+    SetMonData(mon, MON_DATA_TOUGH, &ROAMER(roamerIndex)->tough);
     SetMonData(mon, MON_DATA_IS_SHINY, &ROAMER(roamerIndex)->shiny);
 }
 

@@ -1,6 +1,6 @@
 
 #include "global.h"
-//#include "contest.h"
+#include "contest.h"
 
 enum {
     CONTEST_OPPONENT_JIMMY,

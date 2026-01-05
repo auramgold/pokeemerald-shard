@@ -405,11 +405,11 @@ void CB2_InitLearnMove(void)
     SetVBlankCallback(VBlankCB_MoveRelearner);
 
     InitMoveRelearnerBackgroundLayers();
-    InitMoveRelearnerWindows(FALSE);
+    InitMoveRelearnerWindows(gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES);
 
     sMoveRelearnerMenuState.listOffset = 0;
     sMoveRelearnerMenuState.listRow = 0;
-    sMoveRelearnerMenuState.showContestInfo = FALSE;//gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES;
+    sMoveRelearnerMenuState.showContestInfo = gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES;
 
     switch (gMoveRelearnerState)
     {
@@ -514,16 +514,16 @@ static void DoMoveRelearnerMain(void)
     case MENU_STATE_FADE_TO_BLACK:
         sMoveRelearnerStruct->state++;
         HideHeartSpritesAndShowTeachMoveText(FALSE);
-        // if (gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES)
-        //     MoveRelearnerShowHideHearts(GetCurrentSelectedMove());
+        if (gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES)
+            MoveRelearnerShowHideHearts(GetCurrentSelectedMove());
         BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
         break;
     case MENU_STATE_WAIT_FOR_FADE:
         if (!gPaletteFade.active)
         {
-            // if (gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES)
-            //     sMoveRelearnerStruct->state = MENU_STATE_IDLE_CONTEST_MODE;
-            // else
+            if (gRelearnMode == RELEARN_MODE_PSS_PAGE_CONTEST_MOVES)
+                sMoveRelearnerStruct->state = MENU_STATE_IDLE_CONTEST_MODE;
+            else
                 sMoveRelearnerStruct->state = MENU_STATE_IDLE_BATTLE_MODE;
         }
         break;
@@ -742,9 +742,9 @@ static void DoMoveRelearnerMain(void)
                 case RELEARN_MODE_PSS_PAGE_BATTLE_MOVES:
                     ShowPokemonSummaryScreen(SUMMARY_MODE_RELEARNER_BATTLE, gPlayerParty, sMoveRelearnerStruct->partyMon, gPlayerPartyCount - 1, gInitialSummaryScreenCallback);
                     break;
-                // case RELEARN_MODE_PSS_PAGE_CONTEST_MOVES:
-                //     ShowPokemonSummaryScreen(SUMMARY_MODE_RELEARNER_CONTEST, gPlayerParty, sMoveRelearnerStruct->partyMon, gPlayerPartyCount - 1, gInitialSummaryScreenCallback);
-                //     break;
+                case RELEARN_MODE_PSS_PAGE_CONTEST_MOVES:
+                    ShowPokemonSummaryScreen(SUMMARY_MODE_RELEARNER_CONTEST, gPlayerParty, sMoveRelearnerStruct->partyMon, gPlayerPartyCount - 1, gInitialSummaryScreenCallback);
+                    break;
                 default:
                     ShowPokemonSummaryScreen(SUMMARY_MODE_NORMAL, gPlayerParty, sMoveRelearnerStruct->partyMon, gPlayerPartyCount - 1, gInitialSummaryScreenCallback);
                     break;
@@ -871,13 +871,13 @@ static void HandleInput(bool8 showContest)
 
         PlaySE(SE_SELECT);
 
-        // if (showContest == FALSE)
-        // {
-        //     PutWindowTilemap(RELEARNERWIN_DESC_CONTEST);
-        //     sMoveRelearnerStruct->state = MENU_STATE_SETUP_CONTEST_MODE;
-        //     sMoveRelearnerMenuState.showContestInfo = TRUE;
-        // }
-        // else
+        if (showContest == FALSE)
+        {
+            PutWindowTilemap(RELEARNERWIN_DESC_CONTEST);
+            sMoveRelearnerStruct->state = MENU_STATE_SETUP_CONTEST_MODE;
+            sMoveRelearnerMenuState.showContestInfo = TRUE;
+        }
+        else
         {
             PutWindowTilemap(RELEARNERWIN_DESC_BATTLE);
             sMoveRelearnerStruct->state = MENU_STATE_SETUP_BATTLE_MODE;
@@ -1026,41 +1026,41 @@ void MoveRelearnerShowHideHearts(s32 move)
     u16 numHearts;
     u16 i;
 
-    // if (!sMoveRelearnerMenuState.showContestInfo || move == LIST_CANCEL)
+    if (!sMoveRelearnerMenuState.showContestInfo || move == LIST_CANCEL)
     {
         for (i = 0; i < 16; i++)
             gSprites[sMoveRelearnerStruct->heartSpriteIds[i]].invisible = TRUE;
     }
-    // else
-    // {
-    //     numHearts = (u8)(gContestEffects[GetMoveContestEffect(move)].appeal / 10);
-    //
-    //     if (numHearts == 0xFF)
-    //         numHearts = 0;
-    //
-    //     for (i = 0; i < 8; i++)
-    //     {
-    //         if (i < numHearts)
-    //             StartSpriteAnim(&gSprites[sMoveRelearnerStruct->heartSpriteIds[i]], 1);
-    //         else
-    //             StartSpriteAnim(&gSprites[sMoveRelearnerStruct->heartSpriteIds[i]], 0);
-    //         gSprites[sMoveRelearnerStruct->heartSpriteIds[i]].invisible = FALSE;
-    //     }
-    //
-    //     numHearts = (u8)(gContestEffects[GetMoveContestEffect(move)].jam / 10);
-    //
-    //     if (numHearts == 0xFF)
-    //         numHearts = 0;
-    //
-    //     for (i = 0; i < 8; i++)
-    //     {
-    //         if (i < numHearts)
-    //             StartSpriteAnim(&gSprites[sMoveRelearnerStruct->heartSpriteIds[i + 8]], 3);
-    //         else
-    //             StartSpriteAnim(&gSprites[sMoveRelearnerStruct->heartSpriteIds[i + 8]], 2);
-    //         gSprites[sMoveRelearnerStruct->heartSpriteIds[i + 8]].invisible = FALSE;
-    //     }
-    // }
+    else
+    {
+        numHearts = (u8)(gContestEffects[GetMoveContestEffect(move)].appeal / 10);
+
+        if (numHearts == 0xFF)
+            numHearts = 0;
+
+        for (i = 0; i < 8; i++)
+        {
+            if (i < numHearts)
+                StartSpriteAnim(&gSprites[sMoveRelearnerStruct->heartSpriteIds[i]], 1);
+            else
+                StartSpriteAnim(&gSprites[sMoveRelearnerStruct->heartSpriteIds[i]], 0);
+            gSprites[sMoveRelearnerStruct->heartSpriteIds[i]].invisible = FALSE;
+        }
+
+        numHearts = (u8)(gContestEffects[GetMoveContestEffect(move)].jam / 10);
+
+        if (numHearts == 0xFF)
+            numHearts = 0;
+
+        for (i = 0; i < 8; i++)
+        {
+            if (i < numHearts)
+                StartSpriteAnim(&gSprites[sMoveRelearnerStruct->heartSpriteIds[i + 8]], 3);
+            else
+                StartSpriteAnim(&gSprites[sMoveRelearnerStruct->heartSpriteIds[i + 8]], 2);
+            gSprites[sMoveRelearnerStruct->heartSpriteIds[i + 8]].invisible = FALSE;
+        }
+    }
 }
 
 void MoveRelearnerShowHideCategoryIcon(s32 moveId)

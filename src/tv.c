@@ -15,7 +15,7 @@
 #include "easy_chat.h"
 #include "battle.h"
 #include "battle_tower.h"
-//#include "contest.h"
+#include "contest.h"
 #include "item.h"
 #include "link.h"
 #include "main.h"
@@ -1220,30 +1220,30 @@ static void StorePlayerIdInNormalShow(TVShow *show)
 
 static void InterviewAfter_ContestLiveUpdates(void)
 {
-//     TVShow *show;
-//     TVShow *show2;
-//
-//     show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
-//     if (show->contestLiveUpdates.kind == TVSHOW_CONTEST_LIVE_UPDATES)
-//     {
-//         show2 = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
-//         show2->contestLiveUpdates.kind = TVSHOW_CONTEST_LIVE_UPDATES;
-//         show2->contestLiveUpdates.active = TRUE;
-//         StringCopy(show2->contestLiveUpdates.winningTrainerName, gSaveBlock2Ptr->playerName); // Show only begins running if player won, so always load players name
-//         show2->contestLiveUpdates.category = gSpecialVar_ContestCategory;
-//         show2->contestLiveUpdates.winningSpecies = GetMonData(&gPlayerParty[gContestMonPartyIndex], MON_DATA_SPECIES, NULL);
-//         show2->contestLiveUpdates.losingSpecies = show->contestLiveUpdates.losingSpecies;
-//         show2->contestLiveUpdates.loserAppealFlag = show->contestLiveUpdates.loserAppealFlag;
-//         show2->contestLiveUpdates.round1Placing = show->contestLiveUpdates.round1Placing;
-//         show2->contestLiveUpdates.round2Placing = show->contestLiveUpdates.round2Placing;
-//         show2->contestLiveUpdates.move = show->contestLiveUpdates.move;
-//         show2->contestLiveUpdates.winnerAppealFlag = show->contestLiveUpdates.winnerAppealFlag;
-//         StringCopy(show2->contestLiveUpdates.losingTrainerName, show->contestLiveUpdates.losingTrainerName);
-//         StorePlayerIdInNormalShow(show2);
-//         show2->contestLiveUpdates.winningTrainerLanguage = gGameLanguage;
-//         show2->contestLiveUpdates.losingTrainerLanguage = show->contestLiveUpdates.losingTrainerLanguage;
-//         DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
-//     }
+    TVShow *show;
+    TVShow *show2;
+
+    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    if (show->contestLiveUpdates.kind == TVSHOW_CONTEST_LIVE_UPDATES)
+    {
+        show2 = &gSaveBlock1Ptr->tvShows[sCurTVShowSlot];
+        show2->contestLiveUpdates.kind = TVSHOW_CONTEST_LIVE_UPDATES;
+        show2->contestLiveUpdates.active = TRUE;
+        StringCopy(show2->contestLiveUpdates.winningTrainerName, gSaveBlock2Ptr->playerName); // Show only begins running if player won, so always load players name
+        show2->contestLiveUpdates.category = gSpecialVar_ContestCategory;
+        show2->contestLiveUpdates.winningSpecies = GetMonData(&gPlayerParty[gContestMonPartyIndex], MON_DATA_SPECIES, NULL);
+        show2->contestLiveUpdates.losingSpecies = show->contestLiveUpdates.losingSpecies;
+        show2->contestLiveUpdates.loserAppealFlag = show->contestLiveUpdates.loserAppealFlag;
+        show2->contestLiveUpdates.round1Placing = show->contestLiveUpdates.round1Placing;
+        show2->contestLiveUpdates.round2Placing = show->contestLiveUpdates.round2Placing;
+        show2->contestLiveUpdates.move = show->contestLiveUpdates.move;
+        show2->contestLiveUpdates.winnerAppealFlag = show->contestLiveUpdates.winnerAppealFlag;
+        StringCopy(show2->contestLiveUpdates.losingTrainerName, show->contestLiveUpdates.losingTrainerName);
+        StorePlayerIdInNormalShow(show2);
+        show2->contestLiveUpdates.winningTrainerLanguage = gGameLanguage;
+        show2->contestLiveUpdates.losingTrainerLanguage = show->contestLiveUpdates.losingTrainerLanguage;
+        DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
+    }
 }
 
 void PutBattleUpdateOnTheAir(u8 opponentLinkPlayerId, u16 move, u16 speciesPlayer, u16 speciesOpponent)
@@ -1347,63 +1347,63 @@ void PutFanClubSpecialOnTheAir(void)
 #endif //FREE_LINK_BATTLE_RECORDS
 }
 
-// void ContestLiveUpdates_Init(u8 round1Placing)
-// {
-//     TVShow *show;
-//
-//     DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
-//     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
-//     if (sCurTVShowSlot != -1)
-//     {
-//         show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
-//         show->contestLiveUpdates.round1Placing = round1Placing;
-//         show->contestLiveUpdates.kind = TVSHOW_CONTEST_LIVE_UPDATES;
-//     }
-// }
-//
-// void ContestLiveUpdates_SetRound2Placing(u8 round2Placing)
-// {
-//     TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
-//     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
-//     if (sCurTVShowSlot != -1)
-//         show->contestLiveUpdates.round2Placing = round2Placing;
-// }
-//
-// void ContestLiveUpdates_SetWinnerAppealFlag(u8 flag)
-// {
-//     TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
-//     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
-//     if (sCurTVShowSlot != -1)
-//         show->contestLiveUpdates.winnerAppealFlag = flag;
-// }
-//
-// void ContestLiveUpdates_SetWinnerMoveUsed(u16 move)
-// {
-//     TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
-//     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
-//     if (sCurTVShowSlot != -1)
-//         show->contestLiveUpdates.move = move;
-// }
-//
-// void ContestLiveUpdates_SetLoserData(u8 flag, u8 loser)
-// {
-//     TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
-//     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
-//     if (sCurTVShowSlot != -1)
-//     {
-//         show->contestLiveUpdates.losingSpecies = gContestMons[loser].species;
-//         StringCopy(show->contestLiveUpdates.losingTrainerName, gContestMons[loser].trainerName);
-//         StripExtCtrlCodes(show->contestLiveUpdates.losingTrainerName);
-//         show->contestLiveUpdates.loserAppealFlag = flag;
-//
-//         if (loser + 1 > gNumLinkContestPlayers)
-//             show->contestLiveUpdates.losingTrainerLanguage = gLinkPlayers[0].language;
-//         else if (gGameLanguage == LANGUAGE_JAPANESE || gLinkPlayers[loser].language == LANGUAGE_JAPANESE)
-//             show->contestLiveUpdates.losingTrainerLanguage = LANGUAGE_JAPANESE;
-//         else
-//             show->contestLiveUpdates.losingTrainerLanguage = gLinkPlayers[loser].language;
-//     }
-// }
+void ContestLiveUpdates_Init(u8 round1Placing)
+{
+    TVShow *show;
+
+    DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
+    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+    if (sCurTVShowSlot != -1)
+    {
+        show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+        show->contestLiveUpdates.round1Placing = round1Placing;
+        show->contestLiveUpdates.kind = TVSHOW_CONTEST_LIVE_UPDATES;
+    }
+}
+
+void ContestLiveUpdates_SetRound2Placing(u8 round2Placing)
+{
+    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+    if (sCurTVShowSlot != -1)
+        show->contestLiveUpdates.round2Placing = round2Placing;
+}
+
+void ContestLiveUpdates_SetWinnerAppealFlag(u8 flag)
+{
+    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+    if (sCurTVShowSlot != -1)
+        show->contestLiveUpdates.winnerAppealFlag = flag;
+}
+
+void ContestLiveUpdates_SetWinnerMoveUsed(u16 move)
+{
+    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+    if (sCurTVShowSlot != -1)
+        show->contestLiveUpdates.move = move;
+}
+
+void ContestLiveUpdates_SetLoserData(u8 flag, u8 loser)
+{
+    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
+    if (sCurTVShowSlot != -1)
+    {
+        show->contestLiveUpdates.losingSpecies = gContestMons[loser].species;
+        StringCopy(show->contestLiveUpdates.losingTrainerName, gContestMons[loser].trainerName);
+        StripExtCtrlCodes(show->contestLiveUpdates.losingTrainerName);
+        show->contestLiveUpdates.loserAppealFlag = flag;
+
+        if (loser + 1 > gNumLinkContestPlayers)
+            show->contestLiveUpdates.losingTrainerLanguage = gLinkPlayers[0].language;
+        else if (gGameLanguage == LANGUAGE_JAPANESE || gLinkPlayers[loser].language == LANGUAGE_JAPANESE)
+            show->contestLiveUpdates.losingTrainerLanguage = LANGUAGE_JAPANESE;
+        else
+            show->contestLiveUpdates.losingTrainerLanguage = gLinkPlayers[loser].language;
+    }
+}
 
 static void InterviewAfter_BravoTrainerPokemonProfile(void)
 {
@@ -1453,13 +1453,13 @@ void BravoTrainerPokemonProfile_BeforeInterview2(u8 contestStandingPlace)
     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
     if (sCurTVShowSlot != -1)
     {
-        // show->bravoTrainer.contestResult = contestStandingPlace;
-        // show->bravoTrainer.contestCategory = gSpecialVar_ContestCategory;
-        // show->bravoTrainer.contestRank = gSpecialVar_ContestRank;
-        //show->bravoTrainer.species = GetMonData(&gPlayerParty[gContestMonPartyIndex], MON_DATA_SPECIES, NULL);
-        //GetMonData(&gPlayerParty[gContestMonPartyIndex], MON_DATA_NICKNAME10, show->bravoTrainer.pokemonNickname);
-        // StripExtCtrlCodes(show->bravoTrainer.pokemonNickname);
-        // show->bravoTrainer.pokemonNameLanguage = GetMonData(&gPlayerParty[gContestMonPartyIndex], MON_DATA_LANGUAGE);
+        show->bravoTrainer.contestResult = contestStandingPlace;
+        show->bravoTrainer.contestCategory = gSpecialVar_ContestCategory;
+        show->bravoTrainer.contestRank = gSpecialVar_ContestRank;
+        show->bravoTrainer.species = GetMonData(&gPlayerParty[gContestMonPartyIndex], MON_DATA_SPECIES, NULL);
+        GetMonData(&gPlayerParty[gContestMonPartyIndex], MON_DATA_NICKNAME10, show->bravoTrainer.pokemonNickname);
+        StripExtCtrlCodes(show->bravoTrainer.pokemonNickname);
+        show->bravoTrainer.pokemonNameLanguage = GetMonData(&gPlayerParty[gContestMonPartyIndex], MON_DATA_LANGUAGE);
     }
 }
 

@@ -69,7 +69,7 @@ static void PrintSearchResultListMenuItems(struct Pokenav_SearchResultsGfx *);
 static void CreateSearchResultsList(void);
 static void BufferSearchMonListItem(struct PokenavMonListItem *, u8 *);
 
-static const u32 sSearchMonDataIds[] = {0,1,2,3,4}; // TODO: this is bad don't do it
+static const u32 sSearchMonDataIds[] = {MON_DATA_COOL, MON_DATA_BEAUTY, MON_DATA_CUTE, MON_DATA_SMART, MON_DATA_TOUGH};
 
 static const LoopedTask sConditionSearchLoopedTaskFuncs[] =
 {
