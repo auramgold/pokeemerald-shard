@@ -10,7 +10,6 @@
 #include "battle_setup.h"
 #include "battle_z_move.h"
 #include "battle_terastal.h"
-#include "battle_shard.h"
 #include "data.h"
 #include "debug.h"
 #include "event_data.h"

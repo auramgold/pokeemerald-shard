@@ -9,7 +9,6 @@ enum Gimmick
     GIMMICK_Z_MOVE,
     GIMMICK_DYNAMAX,
     GIMMICK_TERA,
-    GIMMICK_SHARD,
     GIMMICKS_COUNT,
 };
 

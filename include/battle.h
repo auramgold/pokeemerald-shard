@@ -21,7 +21,6 @@
 #include "battle_debug.h"
 #include "battle_dynamax.h"
 #include "battle_terastal.h"
-#include "battle_shard.h"
 #include "battle_gimmick.h"
 #include "generational_changes.h"
 #include "move.h"
