@@ -214,6 +214,7 @@ struct DebugMonData
     u8 teraType;
     u8 dynamaxLevel:7;
     u8 gmaxFactor:1;
+    u16 shardAbility;
 };
 
 struct DebugMenuListData
@@ -314,6 +315,7 @@ static void DebugAction_Give_Pokemon_SelectLevel(u8 taskId);
 static void DebugAction_Give_Pokemon_SelectShiny(u8 taskId);
 static void DebugAction_Give_Pokemon_SelectNature(u8 taskId);
 static void DebugAction_Give_Pokemon_SelectAbility(u8 taskId);
+static void DebugAction_Give_Pokemon_SelectShardAbility(u8 taskId);
 static void DebugAction_Give_Pokemon_SelectTeraType(u8 taskId);
 static void DebugAction_Give_Pokemon_SelectDynamaxLevel(u8 taskId);
 static void DebugAction_Give_Pokemon_SelectGigantamaxFactor(u8 taskId);
@@ -353,6 +355,7 @@ extern const u8 Debug_EventScript_CheckIVs[];
 extern const u8 Debug_EventScript_InflictStatus1[];
 extern const u8 Debug_EventScript_SetHiddenNature[];
 extern const u8 Debug_EventScript_SetAbility[];
+extern const u8 Debug_EventScript_SetShardAbility[];
 extern const u8 Debug_EventScript_SetFriendship[];
 extern const u8 Debug_EventScript_Script_1[];
 extern const u8 Debug_EventScript_Script_2[];
@@ -2445,6 +2448,17 @@ static void Debug_Display_Ability(enum Ability abilityId, u32 digit, u8 windowId
     AddTextPrinterParameterized(windowId, DEBUG_MENU_FONT, gStringVar4, 0, 0, 0, NULL);
 }
 
+static void Debug_Display_ShardAbility(enum Ability abilityId, u32 digit, u8 windowId)
+{
+    StringCopy(gStringVar2, gText_DigitIndicator[digit]);
+    ConvertIntToDecimalStringN(gStringVar3, abilityId, STR_CONV_MODE_LEADING_ZEROS, 3);
+    StringCopyPadded(gStringVar3, gStringVar3, CHAR_SPACE, 15);
+    u8 *end = StringCopy(gStringVar1, gAbilitiesInfo[abilityId].name);
+    WrapFontIdToFit(gStringVar1, end, DEBUG_MENU_FONT, WindowWidthPx(windowId));
+    StringExpandPlaceholders(gStringVar4, COMPOUND_STRING("Ability Srd: {STR_VAR_3}{CLEAR_TO 90}\n{STR_VAR_1}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_2}{CLEAR_TO 90}"));
+    AddTextPrinterParameterized(windowId, DEBUG_MENU_FONT, gStringVar4, 0, 0, 0, NULL);
+}
+
 static void DebugAction_Give_Pokemon_SelectNature(u8 taskId)
 {
     if (JOY_NEW(DPAD_ANY))
@@ -2776,10 +2790,44 @@ static void DebugAction_Give_Pokemon_SelectEVs(u8 taskId)
             }
             else
             {
-                Debug_Display_MoveInfo(gTasks[taskId].tInput, gTasks[taskId].tIterator, gTasks[taskId].tDigit, gTasks[taskId].tSubWindowId);
-                gTasks[taskId].func = DebugAction_Give_Pokemon_Move;
+                enum Ability abilityId = ABILITY_NONE;
+                Debug_Display_ShardAbility(abilityId, gTasks[taskId].tDigit, gTasks[taskId].tSubWindowId);
+
+                gTasks[taskId].func = DebugAction_Give_Pokemon_SelectShardAbility;
             }
         }
+    }
+    else if (JOY_NEW(B_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        Free(sDebugMonData);
+        DebugAction_DestroyExtraWindow(taskId);
+    }
+}
+
+static void DebugAction_Give_Pokemon_SelectShardAbility(u8 taskId)
+{
+    u16 abilityCount = ABILITIES_COUNT-1; //-1 for proper iteration
+    u8 i = 0;
+
+    if (JOY_NEW(DPAD_ANY))
+    {
+        PlaySE(SE_SELECT);
+
+        Debug_HandleInput_Numeric(taskId, 0, abilityCount, 3);
+
+        enum Ability abilityId = gTasks[taskId].tInput;
+        Debug_Display_ShardAbility(abilityId, gTasks[taskId].tDigit, gTasks[taskId].tSubWindowId);
+    }
+
+    if (JOY_NEW(A_BUTTON))
+    {
+        sDebugMonData->shardAbility = gTasks[taskId].tInput - i;
+        gTasks[taskId].tInput = 0;
+        gTasks[taskId].tDigit = 0;
+
+        Debug_Display_MoveInfo(gTasks[taskId].tInput, gTasks[taskId].tIterator, gTasks[taskId].tDigit, gTasks[taskId].tSubWindowId);
+        gTasks[taskId].func = DebugAction_Give_Pokemon_Move;
     }
     else if (JOY_NEW(B_BUTTON))
     {
@@ -2854,6 +2902,7 @@ static void DebugAction_Give_Pokemon_ComplexCreateMon(u8 taskId) //https://githu
     u32 teraType    = sDebugMonData->teraType;
     u32 dmaxLevel   = sDebugMonData->dynamaxLevel;
     u32 gmaxFactor  = sDebugMonData->gmaxFactor;
+    u16 shardAbility = sDebugMonData->shardAbility;
     for (u32 i = 0; i < MAX_MON_MOVES; i++)
     {
         moves[i] = sDebugMonData->monMoves[i];
@@ -2921,6 +2970,8 @@ static void DebugAction_Give_Pokemon_ComplexCreateMon(u8 taskId) //https://githu
     }
 
     SetMonData(&mon, MON_DATA_ABILITY_NUM, &abilityNum);
+
+    SetMonData(&mon, MON_DATA_SHARD_ABILITY, &shardAbility);
 
     //Update mon stats before giving it to the player
     CalculateMonStats(&mon);
