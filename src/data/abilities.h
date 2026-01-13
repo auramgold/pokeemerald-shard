@@ -2412,4 +2412,40 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
+
+    [ABILITY_SHARD_GREENHOUSE_EFFECT] =
+    {
+        .name = _("GreenhouseEffect"),
+        .description = COMPOUND_STRING("Summons intense sunlight."),
+        .cantBeCopied = TRUE,
+        .cantBeSwapped = TRUE,
+        .cantBeTraced = TRUE,
+        .cantBeSuppressed = TRUE,
+        .cantBeOverwritten = TRUE,
+        .aiRating = 10,
+    },
+
+    [ABILITY_SHARD_CATEGORY_FIVE] =
+    {
+        .name = _("Category Five"),
+        .description = COMPOUND_STRING("Summons heavy rain."),
+        .cantBeCopied = TRUE,
+        .cantBeSwapped = TRUE,
+        .cantBeTraced = TRUE,
+        .cantBeSuppressed = TRUE,
+        .cantBeOverwritten = TRUE,
+        .aiRating = 10,
+    },
+
+    [ABILITY_SHARD_PRECISION] =
+    {
+        .name = _("Precision"),
+        .description = COMPOUND_STRING("Never misses, always critical."),
+        .cantBeCopied = TRUE,
+        .cantBeSwapped = TRUE,
+        .cantBeTraced = TRUE,
+        .cantBeSuppressed = TRUE,
+        .cantBeOverwritten = TRUE,
+        .aiRating = 10,
+    },
 };

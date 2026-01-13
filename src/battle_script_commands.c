@@ -1619,7 +1619,8 @@ s32 CalcCritChanceStage(u32 battlerAtk, u32 battlerDef, u32 move, bool32 recordA
     }
     else if (gBattleMons[battlerAtk].volatiles.laserFocus
           || MoveAlwaysCrits(move)
-          || (abilityAtk == ABILITY_MERCILESS && gBattleMons[battlerDef].status1 & STATUS1_PSN_ANY))
+          || (abilityAtk == ABILITY_MERCILESS && gBattleMons[battlerDef].status1 & STATUS1_PSN_ANY)
+          || abilityAtk == ABILITY_SHARD_PRECISION)
     {
         critChance = CRITICAL_HIT_ALWAYS;
     }
@@ -17803,8 +17804,8 @@ void BS_TryToClearPrimalWeather(void)
     for (u32 i = 0; i < gBattlersCount; i++)
     {
         enum Ability ability = GetBattlerAbility(i);
-        if (((ability == ABILITY_DESOLATE_LAND && gBattleWeather & B_WEATHER_SUN_PRIMAL)
-             || (ability == ABILITY_PRIMORDIAL_SEA && gBattleWeather & B_WEATHER_RAIN_PRIMAL)
+        if ((((ability == ABILITY_DESOLATE_LAND || ability == ABILITY_SHARD_GREENHOUSE_EFFECT) && gBattleWeather & B_WEATHER_SUN_PRIMAL)
+             || ((ability == ABILITY_PRIMORDIAL_SEA || ability == ABILITY_SHARD_CATEGORY_FIVE) && gBattleWeather & B_WEATHER_RAIN_PRIMAL)
              || (ability == ABILITY_DELTA_STREAM && gBattleWeather & B_WEATHER_STRONG_WINDS))
             && IsBattlerAlive(i))
             shouldNotClear = TRUE;

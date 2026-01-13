@@ -3226,8 +3226,8 @@ bool32 TryChangeBattleWeather(u32 battler, u32 battleWeatherId, u32 ability)
         return FALSE;
     }
     else if (gBattleWeather & B_WEATHER_PRIMAL_ANY
-          && ability != ABILITY_DESOLATE_LAND
-          && ability != ABILITY_PRIMORDIAL_SEA
+          && ability != ABILITY_DESOLATE_LAND && ability != ABILITY_SHARD_GREENHOUSE_EFFECT
+          && ability != ABILITY_PRIMORDIAL_SEA && ability != ABILITY_SHARD_CATEGORY_FIVE
           && ability != ABILITY_DELTA_STREAM)
     {
         return FALSE;
@@ -4440,6 +4440,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
             }
             break;
         case ABILITY_DESOLATE_LAND:
+        case ABILITY_SHARD_GREENHOUSE_EFFECT:
             if (TryChangeBattleWeather(battler, BATTLE_WEATHER_SUN_PRIMAL, gLastUsedAbility))
             {
                 BattleScriptPushCursorAndCallback(BattleScript_DesolateLandActivates);
@@ -4447,6 +4448,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, u32 battler, enum Ability ab
             }
             break;
         case ABILITY_PRIMORDIAL_SEA:
+        case ABILITY_SHARD_CATEGORY_FIVE:
             if (TryChangeBattleWeather(battler, BATTLE_WEATHER_RAIN_PRIMAL, gLastUsedAbility))
             {
                 BattleScriptPushCursorAndCallback(BattleScript_PrimordialSeaActivates);
@@ -10828,6 +10830,10 @@ bool32 CanMoveSkipAccuracyCalc(u32 battlerAtk, u32 battlerDef, enum Ability abil
     {
         effect = TRUE;
     }
+    else if (abilityAtk == ABILITY_SHARD_PRECISION)
+    {
+        effect = TRUE;
+    }
 
     if (!effect && HasWeatherEffect())
     {
@@ -10841,7 +10847,7 @@ bool32 CanMoveSkipAccuracyCalc(u32 battlerAtk, u32 battlerDef, enum Ability abil
     }
 
     if (ability != ABILITY_NONE && option == RUN_SCRIPT)
-        RecordAbilityBattle(battlerAtk, ABILITY_NO_GUARD);
+        RecordAbilityBattle(battlerAtk, ability);
 
     return effect;
 }

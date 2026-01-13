@@ -3133,7 +3133,7 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
             break;
         }
         case MON_DATA_SHARD_ABILITY:
-            SET32(GetSubstruct2(boxMon)->shardAbility);
+            SET16(GetSubstruct2(boxMon)->shardAbility);
             break;
         default:
             break;
